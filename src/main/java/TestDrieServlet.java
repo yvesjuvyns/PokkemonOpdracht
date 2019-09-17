@@ -34,13 +34,18 @@ public class TestDrieServlet extends HttpServlet {
 
         String nameAttribute = req.getParameter("SomeName");
 
-
+        // checkt niet voor een string met allemaal lege tekens "    " bijvoorbeeld
+        //
         if(nameAttribute.isEmpty()){
+            //je stelt de warning in, maar wanneer je 10 keer de pagina bezoekt zonder een geldige input
+            // 10 x http://localhost:8080/yves/testdrie intypen en enter duwen bijvoorbeeld
+            // dan zal je 10 x gelieve een geldige naam in te voeren! zien, zonder dat de client op push here heeft gedrukt
             session.setAttribute("warning", warning);
             req.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(req,resp);
         }
         else {
             session.setAttribute("SomeName", nameAttribute);
+
             session.setAttribute("warning", "");
             req.getRequestDispatcher("/WEB-INF/pages/welcome.jsp").forward(req, resp);
         }
